@@ -23,63 +23,9 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-md-3">
-
-            <!-- Profile Image -->
-            <div class="card card-primary card-outline">
-              <div class="card-body box-profile">
-                <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle"
-                       src="<?php echo base_url('upload/').$datakontrak[0]->foto ?>"
-                       alt="User profile picture">
-                </div>
-
-                <h3 class="profile-username text-center"><?php echo $datakontrak[0]->nama ?></h3>
-
-               <?php if ($level == '1') { ?>
-                <!-- <a href="<?php echo base_url('daftar_pegawai/edit/'.$datajenjang[0]->id_pegawai); ?>" class="btn btn-primary btn-block"><b>Update</b></a> -->
-                 
-               <?php } else { ?>
-                 
-                   <center><p>Data Pribadi</p></center>
-              <?php } ?>
-
-              <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          
-                  <li class="nav-item menu-open">
-                    <a href="<?= site_url("daftar_pegawai/detail/utama/$id_pegawai") ?>" class="nav-link">
-                      <p>
-                        Data utama
-                        <i class="fas fa-Dashboard"></i>
-                      </p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item menu-open">
-                    <a href="<?= site_url("daftar_pegawai/detail/pendidikan/$id_pegawai") ?>" class="nav-link">
-                      <p>
-                        Riwayat Pendidikan
-                        <i class="fas fa-alipay"></i>
-                      </p>
-                    </a>
-                  </li>
-
-                  <li class="nav-item menu-open">
-                    <a href="<?= site_url("daftar_pegawai/detail/kontrak/$id_pegawai") ?>" class="nav-link">
-                      <p>
-                        Riwayat Kontrak
-                        <i class="fas fa-alipay"></i>
-                      </p>
-                    </a>
-                  </li>
-         
-                </ul>
-              </nav>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
-
+            <?php
+                $this->load->view('navigasi_profil_pegawai');
+            ?>
             
             <!-- /.card -->
           </div>
@@ -88,7 +34,7 @@
             <div class="card">
               <div class="card-header p-2">
                 <div class="card-header">
-                <a href="<?php echo site_url("daftar_pegawai/tambah_riwayat_kontrak/$id_pegawai") ?>" class="btn btn-success btn-small"><i class="fas fa-user-plus"> Tambah</i></a>
+                <a href="<?php echo site_url("daftar_pegawai/tambah_riwayat_kontrak/$pegawai->id_pegawai") ?>" class="btn btn-success btn-small"><i class="fas fa-user-plus"> Tambah</i></a>
 
                 </div>
               </div><!-- /.card-header -->
@@ -117,7 +63,7 @@
                         </thead>
                         <tbody>
                         <?php 
-                        print_r($datakontrak); 
+                        //print_r($datakontrak); 
                           if(count($datakontrak)>0){
                           $no = 1;
                             foreach ($datakontrak as $dk) {
@@ -140,10 +86,8 @@
                                       <?php
                                           if(!empty($dk->nama_file) || $dk->nama_file!=""){
                                       ?>
-                                            <a href="<?php echo site_url('assets/files/doc_kontrak/'.$dk->id_riwayat) ?>"><button
-                                                type="button" class="btn btn-default btn-xs"><span
-                                                  class="upload"
-                                                  aria-hidden="true"></span>view</button></a>
+                                            
+                                            <a target="_blank"  class="btn btn-block btn-success btn-sm" href="<?php echo site_url('assets/files/doc_kontrak/'.$dk->nama_file) ?>">View</a>
                                       <?php
                                           }
                                       ?>

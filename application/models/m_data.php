@@ -2,6 +2,34 @@
 
 class M_data extends CI_Model{
 
+
+	function get_data_pegawai($id_pegawai){
+		$sql="select * from m_thl where id_pegawai='$id_pegawai'";
+		return $this->db->query($sql)->row();
+	}
+	function detail_data($id_pegawai){
+		/* $id = $this->input->post('id_pegawai');
+		$this->db->select('*');
+		$this->db->from('m_jenjang');
+		$this->db->join('m_thl', 'm_thl.id_pegawai = m_jenjang.pegawai_id', 'left');
+		return $this->db->get_where('m_thl.id_pegawai',$id); */
+		$sql="select * from m_thl
+			left join m_jenjang on m_jenjang.pegawai_id=m_thl.id_pegawai
+			  where m_thl.id_pegawai='$id_pegawai'";
+		return $this->db->query($sql)->row();
+    }
+
+	function get_riwayat_pendidikan($id_pegawai){
+		$sql="select * from m_jenjang where pegawai_id='$id_pegawai'";
+		return $this->db->query($sql)->result();
+	}
+
+	function get_riwayat_kontrak($id_pegawai){
+		
+		$sql="select * from m_riwayat_kontrak where id_pegawai='$id_pegawai'";
+		return $this->db->query($sql)->result();
+    }
+
 	function tampil_data(){
 		return $this->db->get('m_thl');
 	}
@@ -25,27 +53,9 @@ class M_data extends CI_Model{
 	
     // }
 
-	function detail_data($id){
-		/* $id = $this->input->post('id_pegawai');
-		$this->db->select('*');
-		$this->db->from('m_jenjang');
-		$this->db->join('m_thl', 'm_thl.id_pegawai = m_jenjang.pegawai_id', 'left');
-		return $this->db->get_where('m_thl.id_pegawai',$id); */
-		$sql="select * from m_thl
-			left join m_jenjang on m_jenjang.pegawai_id=m_thl.id_pegawai
-			  where m_thl.id_pegawai='$id'";
-		return $this->db->query($sql)->result();
-    }
+	
 
-    function detail_data_kontrak($id){
-		//$id = $this->input->post('id_riwayat');
-		/* $this->db->select('*');
-		$this->db->from('m_riwayat_kontrak');
-		$this->db->join('m_thl', 'm_thl.id_pegawai = m_riwayat_kontrak.id_pegawai', 'left'); */
-		$sql="select * from m_thl left join m_riwayat_kontrak on m_thl.id_pegawai = m_riwayat_kontrak.id_pegawai
-				where m_thl.id_pegawai='$id'";
-		return $this->db->query($sql)->result();
-    }
+    
 
 	function edit_data($id){
 		//$id = $this->input->post('id_pegawai');

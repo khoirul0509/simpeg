@@ -6,9 +6,9 @@ class Daftar_pegawai extends Admin_Controller {
 		parent::__construct();		
 		$this->load->model('m_data');
         $this->load->helper( 'url');
-     }  
+    }  
 
-     public function tampil(){
+    /* public function tampil(){
     	if ($this->session->userdata('logged_in')) {
     		$session_data 	=	$this->session->userdata('logged_in');
     		$data['nama_admin'] = $session_data['nama_admin'];
@@ -21,7 +21,7 @@ class Daftar_pegawai extends Admin_Controller {
         } else {
     		redirect('login','refresh');
     	}
-    }
+    } */
 
 
     public function index(){
@@ -35,7 +35,8 @@ class Daftar_pegawai extends Admin_Controller {
         if($id_pegawai==""){
             redirect("Daftar_pegawai");
         }else{
-            $this->data['id_pegawai']=$id_pegawai;
+            $this->data['pegawai']=$this->m_data->get_data_pegawai($id_pegawai);
+            //=$id_pegawai;
             switch ($modul) {
                 case "utama":
                     $this->data['du'] = $this->m_data->detail_data($id_pegawai);//->result();
@@ -44,12 +45,12 @@ class Daftar_pegawai extends Admin_Controller {
                     $this->render('detail', $this->data);
                     break;
                 case "pendidikan":
-                    $this->data['datajenjang'] = $this->m_data->detail_data($id_pegawai);
+                    $this->data['datajenjang'] = $this->m_data->get_riwayat_pendidikan($id_pegawai);
                     // echo var_dump($this->data); die();
                     $this->render('riwayatpendidikan', $this->data);
                   break;
                 case "kontrak":
-                    $this->data['datakontrak'] = $this->m_data->detail_data_kontrak($id_pegawai);
+                    $this->data['datakontrak'] = $this->m_data->get_riwayat_kontrak($id_pegawai);
                         // echo var_dump($this->data); die();
                     $this->render('riwayatkontrak', $this->data);
                 break;
